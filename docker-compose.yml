@@ -1,9 +1,10 @@
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    entrypoint: /usr/src/app/entrypoint.sh
+    command: python /usr/src/app/djangobnb_backend/manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./djangobnb_backend:/usr/src/djangobnb_backend:rw
+      - .:/usr/src/app/
     ports:
       - "8000:8000"
     env_file:
@@ -32,28 +33,3 @@ services:
 volumes:
   postgres_data:
 
-# services:
-#   web:
-#     build: .
-#     command: python manage.py runserver 0.0.0.0:8000
-#     volumes:
-#       - ./djangobnb_backend:/usr/src/djangobnb_backend:rw
-#     ports:
-#       - "8000:8000"
-#     env_file:
-#       - .env.dev
-#     depends_on:
-#       - db
-#   db:
-#     image: postgres:15
-#     environment:
-#       - POSTGRES_DB=djangobnb
-#       - POSTGRES_USER=postgres
-#       - POSTGRES_PASSWORD=postgres
-#     ports:
-#       - "5432:5432"
-#     volumes:
-#       - postgres_data:/var/lib/postgresql/data/
-
-# volumes:
-#   postgres_data:
