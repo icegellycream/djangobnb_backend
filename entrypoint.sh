@@ -1,7 +1,8 @@
 #!/bin/sh
 
 # Check if database is running before proceeding
-if [ "$DATABASE" = "postgres" ]; then
+if [ "$DATABASE" = "postgres" ]; 
+then
     echo "Check if database is running..."
 
     # Use netcat to wait until the database host and port are available
@@ -15,7 +16,7 @@ fi
 # ADDED: Export path to fix ModuleNotFoundError
 export PYTHONPATH=$PYTHONPATH:/usr/src/app
 
-
+python manage.py makemigrations
 python manage.py migrate
 
 
