@@ -31,7 +31,7 @@ SIMPLE_JWT = {
     "BLACKLIST_AFTER_ROTATION": False,
     "UPDATE_LAST_LOGIN": True,
     "SIGNING_KEY": "acomplexkey",
-    "ALGORITHM": "H5512",
+    "ALGORITHM": "HS512",
 }
 
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
@@ -148,7 +148,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+\
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
