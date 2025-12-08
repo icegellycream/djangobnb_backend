@@ -40,7 +40,14 @@ class User(AbstractUser, PermissionsMixin):
     username = None
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
+    EMAIL_FIELD = 'email'
+    REQUIRED_FIELDS = ['name',]
+
+    def avatar_url(self):
+        if self.avatar:
+            return f'{settings.WEBSITE_URL}{self.avatar.url}'
+        else:
+            return ''
 
     groups = models.ManyToManyField(
         'auth.Group',
