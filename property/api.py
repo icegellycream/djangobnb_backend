@@ -24,12 +24,16 @@ def properties_list(request):
 @api_view(['GET'])
 @authentication_classes([])
 @permission_classes([])
-def  properties_detail(request, pk):
-    property = Property.objects.get(pk=pk)
-
-    serializer = PropertiesDetailSerializer(property, many=False)
-
-    return JsonResponse(serializer.data)
+def properties_detail(request, pk):
+    try:
+        property = Property.objects.get(pk=pk)
+        serializer = PropertiesDetailSerializer(property, many=False)
+        
+        return JsonResponse({
+            'data': serializer.data
+        })
+    except Property.DoesNotExist:
+        return JsonResponse({'error': 'Property not found'}, status=404)
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
@@ -46,18 +50,3 @@ def create_property(request):
     else:
         print('error', form.errors, form.non_field_errors)
         return JsonResponse({'errors': form.errors.as_json()}, status=400)
-
-
-@api_view(['GET'])
-@authentication_classes([])
-@permission_classes([])
-def properties_detail(request, pk):
-    try:
-        property = Property.objects.get(pk=pk)
-        serializer = PropertiesListSerializer(property)
-        
-        return JsonResponse({
-            'data': serializer.data
-        })
-    except Property.DoesNotExist:
-        return JsonResponse({'error': 'Property not found'}, status=404)
