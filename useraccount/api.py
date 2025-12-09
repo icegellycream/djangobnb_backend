@@ -1,9 +1,13 @@
 from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .models import User
 from .serializers import UserDetailSerializer
+
+from property.serializers import ReservationListSerializer
 
 
 @api_view(['GET'])
@@ -16,4 +20,14 @@ def landlord_detail(request, pk):
 
     return JsonResponse(serializer.data, safe=False)
 
+@api_view(['GET'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def reservation_list(request):
+    reservations = request.user.reservations.all()
+
+    print('user', request.user)
+    print(reservations)
     
+    serializer = ReservationListSerializer(reservations, many=True)
+    return JsonResponse(serializer.data, safe=False)
