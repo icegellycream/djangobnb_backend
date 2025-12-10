@@ -27,7 +27,7 @@ WEBSITE_URL = 'http://localhost:8000'
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer'
-    }
+    } 
 }
 
 SIMPLE_JWT = {
@@ -37,7 +37,7 @@ SIMPLE_JWT = {
     "BLACKLIST_AFTER_ROTATION": False,
     "UPDATE_LAST_LOGIN": True,
     "SIGNING_KEY": "acomplexkey",
-    "ALGORITHM": "HS512",
+    "ALOGRIGTHM": "HS512",
 }
 
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
@@ -70,7 +70,7 @@ REST_AUTH = {
 # Application definition
 
 INSTALLED_APPS = [
-    'daphne',
+    'daphne', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -102,6 +102,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -124,8 +125,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'djangobnb_backend.wsgi.application'
-ASGI_APPLICATION = 'djangobnb_backend.asgi.application'
+WSGI_APPLICATION = 'djangobnb_backend.wsgi.application' 
+ASGI_APPLICATION = 'djangobnb_backend.asgi.application' 
 
 
 # Database
