@@ -1,13 +1,10 @@
 from django.http import JsonResponse
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.authentication import SessionAuthentication, TokenAuthentication
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import AccessToken
 from .forms import PropertyForm
 from .models import Property, Reservation
-from .serializers import PropertiesListSerializer, PropertiesDetailSerializer, ReservationListSerializer
+from .serializers import PropertiesListSerializer, PropertiesDetailSerializer, ReservationsListSerializer
 from useraccount.models import User
 
 @api_view(['GET'])
@@ -80,14 +77,12 @@ def property_reservations(request, pk):
     property = Property.objects.get(pk=pk)
     reservations = property.reservations.all()
 
-    serializer = ReservationListSerializer(reservations, many=True)
+    serializer = ReservationsListSerializer(reservations, many=True)
 
     return JsonResponse(serializer.data, safe=False)
 
 
-@api_view(['POST'])
-@authentication_classes([JWTAuthentication])
-@permission_classes([IsAuthenticated])
+@api_view(['POST', 'FILES'])
 def create_property(request):
     form = PropertyForm(request.POST, request.FILES)
 
@@ -103,8 +98,6 @@ def create_property(request):
 
 
 @api_view(['POST'])
-@authentication_classes([JWTAuthentication])
-@permission_classes([IsAuthenticated])
 def book_property(request, pk):
     try:
         start_date = request.POST.get('start_date', '')
@@ -133,19 +126,14 @@ def book_property(request, pk):
 
 
 @api_view(['POST'])
-@authentication_classes([JWTAuthentication])
-@permission_classes([IsAuthenticated])
 def toggle_favorite(request, pk):
-    try:
-        property = Property.objects.get(pk=pk)
+    property = Property.objects.get(pk=pk)
 
-        if request.user in property.favorited.all():
-            property.favorited.remove(request.user)
+    if request.user in property.favorited.all():
+        property.favorited.remove(request.user)
 
-            return JsonResponse({'is_favorite': False})
-        else:
-            property.favorited.add(request.user)
+        return JsonResponse({'is_favorite': False})
+    else:
+        property.favorited.add(request.user)
 
-            return JsonResponse({'is_favorite': True})
-    except Property.DoesNotExist:
-        return JsonResponse({'error': 'Property not found'}, status=404)
+        return JsonResponse({'is_favorite': True})

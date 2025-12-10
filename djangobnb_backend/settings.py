@@ -27,7 +27,7 @@ WEBSITE_URL = 'http://localhost:8000'
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer'
-    } 
+    }
 }
 
 SIMPLE_JWT = {
@@ -43,7 +43,7 @@ SIMPLE_JWT = {
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = 'email' 
 ACCOUNT_EMAIL_VERIFICATION = None
 
 REST_FRAMEWORK = {
@@ -70,12 +70,12 @@ REST_AUTH = {
 # Application definition
 
 INSTALLED_APPS = [
-    'daphne', 
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
+    'django.contrib.sessions', 
+    'django.contrib.messages', 
     'django.contrib.staticfiles',
 
     'rest_framework',
@@ -90,11 +90,11 @@ INSTALLED_APPS = [
 
     'corsheaders',
 
-    'chat',
+    'chat', 
     'property',
     'useraccount',
 ]
-
+ 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -102,6 +102,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -124,8 +125,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'djangobnb_backend.wsgi.application' 
-ASGI_APPLICATION = 'djangobnb_backend.asgi.application' 
+WSGI_APPLICATION = 'djangobnb_backend.wsgi.application'
+ASGI_APPLICATION = 'djangobnb_backend.asgi.application'
 
 
 # Database
@@ -184,4 +185,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField' 
