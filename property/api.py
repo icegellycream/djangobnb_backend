@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework_simplejwt.tokens import AccessToken
 from .forms import PropertyForm
 from .models import Property, Reservation
-from .serializers import PropertiesListSerializer, PropertiesDetailSerializer, ReservationsListSerializer
+from .serializers import PropertiesListSerializer, PropertiesDetailSerializer, ReservationListSerializer
 from useraccount.models import User
 
 @api_view(['GET'])
@@ -77,7 +77,7 @@ def property_reservations(request, pk):
     property = Property.objects.get(pk=pk)
     reservations = property.reservations.all()
 
-    serializer = ReservationsListSerializer(reservations, many=True)
+    serializer = ReservationListSerializer(reservations, many=True)
 
     return JsonResponse(serializer.data, safe=False)
 
