@@ -44,6 +44,8 @@ def properties_list(request):
     guests = request.GET.get('numGuests', '')
     bathrooms = request.GET.get('numBathrooms', '')
 
+    print('country', country)
+
     if checkin_date and checkout_date:
         exact_matches = Reservation.objects.filter(start_date=checkin_date) | Reservation.objects.filter(end_date=checkout_date)
         overlap_matches = Reservation.objects.filter(start_date__lte=checkout_date, end_date__gte=checkin_date)
